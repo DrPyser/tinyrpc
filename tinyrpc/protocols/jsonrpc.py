@@ -274,6 +274,8 @@ class JSONRPCProtocol(RPCBatchProtocol):
             error = rep['error']
             response.error = error['message']
             response._jsonrpc_error_code = error['code']
+            if "data" in error:
+                response.data = error["data"]
         else:
             response = JSONRPCSuccessResponse()
             response.result = rep.get('result', None)
